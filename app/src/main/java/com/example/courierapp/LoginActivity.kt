@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -99,6 +99,8 @@ class LoginActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "Logowanie nie powiodło się, spróbuj ponownie", Toast.LENGTH_SHORT).show()
             }
+
+            cursor.close()
 
         } catch(e: SQLiteException) {
 
