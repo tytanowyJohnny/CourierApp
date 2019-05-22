@@ -4,9 +4,13 @@ import android.app.Application
 
 class CourierApplication : Application() {
 
+
+    // global var to store users
     companion object {
-        var logged = false
-        var userID : String = ""
-        var userType : Int = -1
+
+        var Users: ArrayList<User> = ArrayList()
+        var Parcels: ArrayList<Parcel> = ArrayList()
+        lateinit var currentUser: User
     }
+
 }

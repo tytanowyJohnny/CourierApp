@@ -1,10 +1,8 @@
 package com.example.courierapp
 
-import android.database.Cursor
-import android.database.sqlite.SQLiteException
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -14,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.example.courierapp.CourierApplication.Companion.userType
+import com.example.courierapp.CourierApplication.Companion.currentUser
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -43,9 +41,21 @@ class LoginActivity : AppCompatActivity() {
 
         DBHelper = SQLiteDbHandler(this)
 
+        // Load all users to ArrayList
+        CourierApplication.Users = DBHelper.loadUsers()
+        CourierApplication.Parcels = DBHelper.loadParcels()
+
         button_login.setOnClickListener{
 
             login(inputLayout_username.editText?.text.toString(), inputLayout_password.editText?.text.toString())
+        }
+
+        textView_signup.setOnClickListener {
+
+            val intent: Intent = Intent(this, SignupActivity::class.java)
+
+            startActivity(intent)
+
         }
     }
 
@@ -65,47 +75,31 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun login(username: String, password: String) {
+    private fun login(mUsername: String, mPassword: String) {
 
-        val db = DBHelper.readableDatabase
+        var failed = true
 
-        val cursor : Cursor?
+        for(tempUser: User in CourierApplication.Users) {
 
-        try {
+            if(tempUser.username == mUsername && tempUser.password == mPassword) {
 
-            cursor = db.rawQuery("SELECT * FROM " + DbReader.UserEntry.TABLE_NAME + " WHERE (username = '" + username + "' AND password = '" + password + "')", null)
+                CourierApplication.currentUser = tempUser
 
+                Toast.makeText(this, "Zalogowano użytkownika: " + CourierApplication.currentUser.username, Toast.LENGTH_SHORT).show()
 
-            if(cursor != null && cursor.moveToFirst()) {
+                failed = false
 
-                val DbUsername: String = cursor.getString(cursor.getColumnIndex(DbReader.UserEntry.COLUMN_NAME_USERNAME))
-                val DbUserType: Int = cursor.getInt(cursor.getColumnIndex(DbReader.UserEntry.COLUMN_NAME_TYPE))
+                startActivity(Intent(this, ParcelActivity::class.java))
 
-                cursor.moveToFirst()
-
-                Log.i("DB RESULT: ", DbUsername)
-
-                CourierApplication.logged = true
-                CourierApplication.userID = DbUsername
-                CourierApplication.userType = DbUserType
-
-                Toast.makeText(this, "Logowanie zakończone sukcesem!", Toast.LENGTH_SHORT).show()
-
-                //TODO: New activity depending on account type
-
-            } else {
-
-                Log.i("DB RESULT: ", "Account not found")
-
-                Toast.makeText(this, "Logowanie nie powiodło się, spróbuj ponownie", Toast.LENGTH_SHORT).show()
+                break
             }
+        }
 
-            cursor.close()
+        if(failed) {
 
-        } catch(e: SQLiteException) {
-
-            Log.d("DB Exception", "FUNCTION LOGIN")
+            Toast.makeText(this, "Logowanie nie powiodło się, spróbuj ponownie", Toast.LENGTH_SHORT).show()
         }
 
     }
+
 }

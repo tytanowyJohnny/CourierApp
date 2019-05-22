@@ -14,4 +14,11 @@
     <string name="login_signup">Zarejestruj się!</string>
 
     <string name="login_button">Zaloguj</string>
+
+    <string name="signup_header">Rejestracja</string>
+    <string name="signup_button">Zarejestruj!</string>
+    <string name="title_activity_parcel">ParcelActivity</string>
+
+    <string name="toolbar_parcel_name">Przesyłka</string>
+    <string name="toolbar_parcel_status">Status</string>
 </resources>
