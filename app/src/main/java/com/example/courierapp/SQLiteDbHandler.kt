@@ -25,8 +25,12 @@ object CourierContract {
         const val TABLE_NAME = "parcels"
         const val COLUMN_NAME_PARCEL = "parcel_name"
         const val COLUMN_NAME_WEIGHT = "parcel_weight"
-        const val COLUMN_NAME_ORIGIN = "parcel_origin"
-        const val COLUMN_NAME_DEST = "parcel_destination"
+        const val COLUMN_NAME_ORIGIN_L1 = "parcel_origin_L1"
+        const val COLUMN_NAME_ORIGIN_L2 = "parcel_origin_L2"
+        const val COLUMN_NAME_ORIGIN_L3 = "parcel_origin_L3"
+        const val COLUMN_NAME_DEST_L1 = "parcel_destination_L1"
+        const val COLUMN_NAME_DEST_L2 = "parcel_destination_L2"
+        const val COLUMN_NAME_DEST_L3 = "parcel_destination_L3"
         const val COLUMN_NAME_STATUS = "parcel_status"
         const val COLUMN_NAME_PARCEL_USER = "parcel_user_id"
     }
@@ -46,8 +50,12 @@ private const val SQL_CREATE_PARCEL_ENTRIES =
             "${BaseColumns._ID} INTEGER PRIMARY KEY, " +
             "${CourierContract.ParcelEntry.COLUMN_NAME_PARCEL} TEXT," +
             "${CourierContract.ParcelEntry.COLUMN_NAME_WEIGHT} DOUBLE," +
-            "${CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN} TEXT," +
-            "${CourierContract.ParcelEntry.COLUMN_NAME_DEST} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L1} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L2} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L3} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_DEST_L1} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_DEST_L2} TEXT," +
+            "${CourierContract.ParcelEntry.COLUMN_NAME_DEST_L3} TEXT," +
             "${CourierContract.ParcelEntry.COLUMN_NAME_STATUS} TEXT," +
             "${CourierContract.ParcelEntry.COLUMN_NAME_PARCEL_USER} INTEGER)"
 
@@ -79,13 +87,19 @@ class SQLiteDbHandler(context: Context) :
     companion object {
 
         const val DB_NAME = "app_db"
-        const val DB_VERSION = 2
+        const val DB_VERSION = 3
 
     }
 
     fun loadParcels() : ArrayList<Parcel> {
 
         val tempArray : ArrayList<Parcel> = ArrayList()
+
+        // set capacity to use addAtIndex later
+        for(i in 0..100) {
+
+            tempArray.add(Parcel(-1,"",-1.0,"","","","", "", "", "",-1))        // dummy parcel
+        }
 
         val db = this.readableDatabase
 
@@ -104,12 +118,17 @@ class SQLiteDbHandler(context: Context) :
                     val tempID: Int = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
                     val tempParcel: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_PARCEL))
                     val tempWeight: Double = cursor.getDouble(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_WEIGHT))
-                    val tempOrigin: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN))
-                    val tempDest: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_DEST))
+                    val tempOrigin_L1: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L1))
+                    val tempOrigin_L2: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L2))
+                    val tempOrigin_L3: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L3))
+                    val tempDest_L1: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L1))
+                    val tempDest_L2: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L2))
+                    val tempDest_L3: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L3))
                     val tempStatus: String = cursor.getString(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_STATUS))
                     val tempUserID: Int = cursor.getInt(cursor.getColumnIndex(CourierContract.ParcelEntry.COLUMN_NAME_PARCEL_USER))
 
-                    tempArray.add(Parcel(tempID,tempParcel,tempWeight,tempOrigin,tempDest,tempStatus,tempUserID))
+                    tempArray.add(tempID,Parcel(tempID,tempParcel,tempWeight,tempOrigin_L1, tempOrigin_L2, tempOrigin_L3,
+                        tempDest_L1, tempDest_L2, tempDest_L3,tempStatus,tempUserID))
 
                     Log.i("DB", "Załadowano przesyłke: $tempParcel")
                 } while (cursor.moveToNext())
@@ -182,14 +201,19 @@ class SQLiteDbHandler(context: Context) :
 
     }
 
-    fun insertParcel(name: String, weight: Double, origin: String, dest: String, status: String, parcelUser: Int) : Int {
+    fun insertParcel(name: String, weight: Double, origin_L1: String, origin_L2: String, origin_L3: String,
+                     dest_L1: String, dest_L2: String, dest_L3: String, status: String, parcelUser: Int) : Int {
 
         val values = ContentValues()
 
         values.put(CourierContract.ParcelEntry.COLUMN_NAME_PARCEL, name)
         values.put(CourierContract.ParcelEntry.COLUMN_NAME_WEIGHT, weight)
-        values.put(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN, origin)
-        values.put(CourierContract.ParcelEntry.COLUMN_NAME_DEST, dest)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L1, origin_L1)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L2, origin_L2)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_ORIGIN_L3, origin_L3)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L1, dest_L1)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L2, dest_L2)
+        values.put(CourierContract.ParcelEntry.COLUMN_NAME_DEST_L3, dest_L3)
         values.put(CourierContract.ParcelEntry.COLUMN_NAME_STATUS, status)
         values.put(CourierContract.ParcelEntry.COLUMN_NAME_PARCEL_USER, parcelUser)
 

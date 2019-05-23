@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ParcelViewActivity">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+                android:text="Parcel Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView_parcelName" android:gravity="center"
+                android:paddingTop="20dp" android:paddingBottom="20dp" android:textSize="24sp"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:paddingLeft="15dp" android:layout_marginTop="30dp">
+            <TextView
+                    android:text="@string/parcel_view_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView_nadawca" android:paddingTop="5dp"
+                    android:paddingBottom="5dp" android:textSize="18sp"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:paddingLeft="15dp" android:paddingTop="3dp">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelOrigin_L1"
+                        android:layout_weight="1"
+                        android:paddingTop="5dp" android:paddingBottom="5dp" android:textSize="16sp"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelOrigin_L2"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:textSize="16sp"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelOrigin_L3"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="30dp" android:paddingLeft="15dp">
+            <TextView
+                    android:text="@string/parcel_view_dest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView_adresat" android:paddingTop="5dp"
+                    android:paddingBottom="5dp" android:textSize="18sp"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:paddingLeft="27dp" android:paddingTop="3dp">
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelDest_L1"
+                        android:layout_weight="1"
+                        android:paddingTop="5dp" android:paddingBottom="5dp" android:textSize="16sp"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelDest_L2"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:textSize="16sp"/>
+                <TextView
+                        android:text="TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textView_parcelDest_L3"
+                        android:layout_weight="1"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="30dp" android:paddingLeft="15dp">
+            <TextView
+                    android:text="@string/parcel_view_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView_waga" android:textSize="18sp"
+                    android:paddingBottom="5dp" android:paddingTop="5dp"/>
+
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView_parcelWeight"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="44dp" android:paddingBottom="5dp" android:paddingTop="5dp"
+                    android:textSize="16sp"/>
+
+        </LinearLayout>
+        <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView_parcelStatus"
+                android:layout_marginTop="50dp"
+                android:gravity="center" android:paddingTop="20dp" android:paddingBottom="20dp"
+                android:textSize="24sp" android:textStyle="bold"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

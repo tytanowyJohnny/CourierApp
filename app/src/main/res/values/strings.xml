@@ -21,4 +21,16 @@
 
     <string name="toolbar_parcel_name">Przesyłka</string>
     <string name="toolbar_parcel_status">Status</string>
+
+    <string name="parcel_view_origin">Nadawca:</string>
+    <string name="parcel_view_dest">Adresat:</string>
+    <string name="parcel_view_weight">Waga:</string>
+
+    <string name="parcel_new_address_hint">Adres</string>
+    <string name="parcel_new_weight_hint">Waga przesyłki</string>
+    <string name="parcel_new_name_hint">Nazwa przesyłki</string>
+
+    <string name="parcel_new_button">Zapisz</string>
+
+
 </resources>

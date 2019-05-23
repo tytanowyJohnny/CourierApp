@@ -10,12 +10,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ParcelViewActivity">
+        </activity>
         <activity
                 android:name=".ParcelActivity"
                 android:label="@string/title_activity_parcel"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".SignupActivity">
+        </activity>
+        <activity android:name=".NewParcelActivity">
         </activity>
         <activity
                 android:name=".LoginActivity"

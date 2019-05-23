@@ -1,5 +1,6 @@
 package com.example.courierapp
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ class ParcelActivity : AppCompatActivity() {
 
     lateinit var DBHelper: SQLiteDbHandler
 
+    lateinit var userParcels: ArrayList<Parcel>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parcel)
@@ -33,11 +36,18 @@ class ParcelActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
         DBHelper = SQLiteDbHandler(this)
+        userParcels = ArrayList()
+
+        for(parcel in CourierApplication.Parcels) {
+
+            if(parcel.parcelUser == CourierApplication.currentUser.ID)
+                userParcels.add(parcel)
+        }
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = MyAdapter(CourierApplication.Parcels)
+        viewAdapter = MyAdapter(userParcels)
 
-        val itemDecorator: DividerItemDecoration = DividerItemDecoration(this,DividerItemDecoration.VERTICAL)
+        val itemDecorator = DividerItemDecoration(this,DividerItemDecoration.VERTICAL)
         itemDecorator.setDrawable(resources.getDrawable(R.drawable.divider))
 
         recyclerView_parcel.apply {
@@ -54,11 +64,7 @@ class ParcelActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
 
-            val rowID = DBHelper.insertParcel("test parcel", 2.0, "test origin", "test destination", "test status", CourierApplication.currentUser.ID)
-
-            CourierApplication.Parcels.add(Parcel(rowID, "test parcel", 2.0, "test origin", "test destination", "test status", CourierApplication.currentUser.ID))
-
-            viewAdapter.notifyDataSetChanged()
+            this.startActivity(Intent(this, NewParcelActivity::class.java))
         }
     }
 
