@@ -26,14 +26,15 @@
                     android:text="@string/toolbar_parcel_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/textView8" android:layout_weight="1"
-                    android:textSize="18sp" android:gravity="center" android:textStyle="bold"
-                    android:paddingBottom="10dp" android:textColor="@android:color/black"/>
+                    android:textSize="18sp" android:gravity="center|left" android:textStyle="bold"
+                    android:paddingBottom="10dp" android:textColor="@android:color/black" android:paddingLeft="30dp"/>
             <TextView
                     android:text="@string/toolbar_parcel_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/textView9" android:layout_weight="1"
                     android:textSize="18sp" android:gravity="center" android:textStyle="bold"
-                    android:paddingBottom="10dp" android:textAllCaps="false" android:textColor="@android:color/black"/>
+                    android:paddingBottom="10dp" android:textAllCaps="false" android:textColor="@android:color/black"
+                    android:paddingRight="20dp"/>
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -46,6 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+            app:srcCompat="@drawable/baseline_add_24"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

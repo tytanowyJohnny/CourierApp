@@ -38,10 +38,19 @@ class ParcelActivity : AppCompatActivity() {
         DBHelper = SQLiteDbHandler(this)
         userParcels = ArrayList()
 
-        for(parcel in CourierApplication.Parcels) {
+        if(CourierApplication.currentUser.acc_type != 0) {// Standard user
+            for (parcel in CourierApplication.Parcels) {
 
-            if(parcel.parcelUser == CourierApplication.currentUser.ID)
-                userParcels.add(parcel)
+                if (parcel.parcelUser == CourierApplication.currentUser.ID)
+                    userParcels.add(parcel)
+            }
+        } else {
+
+            for (parcel in CourierApplication.Parcels) {
+
+                if(parcel.parcelUser != -1)
+                    userParcels.add(parcel)
+            }
         }
 
         viewManager = LinearLayoutManager(this)
@@ -62,9 +71,17 @@ class ParcelActivity : AppCompatActivity() {
 
         }
 
-        fab.setOnClickListener { view ->
+        if(CourierApplication.currentUser.acc_type != 0) { // Standard account
 
-            this.startActivity(Intent(this, NewParcelActivity::class.java))
+            fab.show()
+
+            fab.setOnClickListener { view ->
+
+                this.startActivity(Intent(this, NewParcelActivity::class.java))
+            }
+        } else {
+
+            fab.hide()
         }
     }
 

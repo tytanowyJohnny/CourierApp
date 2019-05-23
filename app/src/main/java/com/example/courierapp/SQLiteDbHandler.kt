@@ -91,6 +91,11 @@ class SQLiteDbHandler(context: Context) :
 
     }
 
+    fun updateParcelStatus(parcelID: Int, status: String) {
+
+        this.writableDatabase.execSQL("UPDATE " + CourierContract.ParcelEntry.TABLE_NAME + " SET " + CourierContract.ParcelEntry.COLUMN_NAME_STATUS + " = '" + status + "' WHERE " + BaseColumns._ID + " = " + parcelID)
+    }
+
     fun loadParcels() : ArrayList<Parcel> {
 
         val tempArray : ArrayList<Parcel> = ArrayList()

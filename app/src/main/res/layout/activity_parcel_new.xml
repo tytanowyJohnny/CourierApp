@@ -106,7 +106,7 @@
         <Button
                 android:text="@string/parcel_new_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button" android:layout_gravity="center"
+                android:layout_height="wrap_content" android:id="@+id/button_newParcel" android:layout_gravity="center"
                 android:layout_marginTop="50sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
